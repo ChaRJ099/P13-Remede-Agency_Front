@@ -1,10 +1,10 @@
 import React from "react";
 import "./home.scss";
 // import { NavLink } from "react-router-dom";
-import NavHome from "../Components/Nav-home/Nav-home";
-import HeroBanner from "../Components/Hero-banner/Hero-banner";
-import FeatureItem from "../Components/Feature-item/Feature-item";
-import Footer from "../Components/Footer/Footer";
+import NavHome from "../../Components/Nav-home/Nav-home";
+import HeroBanner from "../../Components/Hero-banner/Hero-banner";
+import FeatureItem from "../../Components/Feature-item/Feature-item";
+import Footer from "../../Components/Footer/Footer";
 
 function Home() {
   return (

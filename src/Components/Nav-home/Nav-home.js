@@ -15,7 +15,7 @@ function NavHome() {
       </NavLink>
       <div>
         <NavLink to="/Sign-in" className="main-nav-item">
-          <i className="fa fa-user-circle"></i>
+          <i className="fa fa-user-circle sign-in-nav"></i>
           Sign In
         </NavLink>
       </div>
