@@ -2,8 +2,26 @@ import "./contact-form.scss";
 // import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 // import { NavLink } from "react-router-dom";
 import ButtonSignIn from "../ButtonSignIn/ButtonSignIn";
+import React, { useState } from "react";
+import { store } from "../../Utils/store";
+import { loginFetchingAction } from "../../Utils/reducer";
 
 function ContactForm() {
+  const getUser = () => {
+    if (
+      document.querySelector("#username") &&
+      document.querySelector("#password")
+    ) {
+      const user = {
+        email: document.querySelector("#username").value,
+        password: document.querySelector("#password").value,
+      };
+      console.log(user);
+      store.dispatch(loginFetchingAction(user));
+      //@TODO : useFetch to resolve and reject, useEffect
+    }
+  };
+
   return (
     <div className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon"></i>
@@ -21,12 +39,17 @@ function ContactForm() {
           <input type="checkbox" id="remember-me" />
           <label htmlFor="remember-me">Remember me</label>
         </div>
-        {
-          /* /*PLACEHOLDER DUE TO STATIC SITE*/
-          <ButtonSignIn to="/User" className="sign-in-button" text="Sign In" />
-          //   <!-- SHOULD BE THE BUTTON BELOW
-          //   <!-- <button class="sign-in-button">Sign In</button> -->
-        }
+
+        {/* <ButtonSignIn
+          to="/User"
+          className="sign-in-button"
+          text="Sign In"
+          onClick={getUser()}
+        /> */}
+
+        <button type="button" className="sign-in-button" onClick={getUser}>
+          Sign In
+        </button>
       </form>
     </div>
   );

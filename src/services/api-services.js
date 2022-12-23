@@ -2,55 +2,65 @@
 
 const host = "http://localhost:3001/api/v1/user";
 
-export const login = async (user) => {
-    console.log("user", user);
+export const userLogin = async (user) => {
 
   return await fetch(`${host}/login`, {
     method: "POST",
     body: JSON.stringify(user),
     headers: {
         'Content-type': 'application/json',
-      },
+    },
   })
-    .then((response) => response.json())
-    .then(({ result }) => {
-      console.log("result", result);
-      return result;
-    });
+  .then((response) => response.json())
+  .then((response) => {
+  console.warn("result userLogin", response);
+    return response;
+  });
 };
 
-export const signUp = async (user) => {
+
+export const userSignUp = async (user) => {
   return await fetch(`${host}/signup`, {
     method: "POST",
     body: JSON.stringify(user),
+    headers: {
+      'Content-type': 'application/json',
+    },
   })
-    .then((response) => response.json())
-    .then(({ result }) => {
-      console.log("result", result);
-      return result;
-    });
+  .then((response) => response.json())
+  .then((response) => {
+    console.warn("result userSignUp", response);
+    return response;
+  });
 };
 
-export const profile = async (user) => {
+export const userProfile = async (token) => {
   return await fetch(`${host}/profile`, {
     method: "POST",
-    body: JSON.stringify(user),
+    headers: {
+      'Content-type': 'application/json',
+      'Authorization': token
+    },
   })
-    .then((response) => response.json())
-    .then(({ result }) => {
-      //   console.log("result", result);
-      return result;
-    });
+  .then((response) => response.json())
+  .then((response) => {
+      console.log("result userProfile", response);
+    return response;
+  });
 };
 
-export const modifyProfile = async (user) => {
+export const modifyUserProfile = async (user) => {
   return await fetch(`${host}/profile`, {
     method: "PUT",
     body: JSON.stringify(user),
+    headers: {
+      'Content-type': 'application/json',
+      'Authorization': 'Bearer my-token',
+    },
   })
-    .then((response) => response.json())
-    .then(({ result }) => {
-      //   console.log("result", result);
-      return result;
-    });
+  .then((response) => response.json())
+  .then(({ result }) => {
+    //   console.log("result", result);
+    return result;
+  });
 };
