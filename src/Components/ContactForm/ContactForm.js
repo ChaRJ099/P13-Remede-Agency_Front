@@ -2,23 +2,36 @@ import "./contact-form.scss";
 // import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 // import { NavLink } from "react-router-dom";
 import ButtonSignIn from "../ButtonSignIn/ButtonSignIn";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { store } from "../../Utils/store";
-import { loginFetchingAction } from "../../Utils/reducer";
+import { loginAction, loginResolvedAction } from "../../Utils/reducer";
+import { userLogin } from "../../services/api-services";
 
 function ContactForm() {
-  const getUser = () => {
-    if (
-      document.querySelector("#username") &&
-      document.querySelector("#password")
-    ) {
-      const user = {
-        email: document.querySelector("#username").value,
-        password: document.querySelector("#password").value,
-      };
-      console.log(user);
-      store.dispatch(loginFetchingAction(user));
-      //@TODO : useFetch to resolve and reject, useEffect
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+  const getUser = async (e) => {
+    e.preventDefault();
+    const user = {
+      email: email,
+      password: password,
+    };
+    console.log("user", user);
+    // utile ?
+    store.dispatch(loginAction(user));
+    //@TODO : useFetch to resolve and reject, useEffect
+
+    const response = await userLogin(user);
+    console.log("response", response);
+
+    if (response.status === 200) {
+      localStorage.setItem("isConnected", "True");
+      localStorage.setItem("token", response.body.token);
+      store.dispatch(loginResolvedAction(response.body.token));
+    } else {
+      localStorage.setItem("isConnected", "False");
+      localStorage.removeItem("token");
     }
   };
 
@@ -26,14 +39,22 @@ function ContactForm() {
     <div className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon"></i>
       <h1>Sign In</h1>
-      <form>
+      <form onSubmit={getUser}>
         <div className="input-wrapper">
-          <label htmlFor="username">Username</label>
-          <input type="text" id="username" />
+          <label htmlFor="email">Email</label>
+          <input
+            type="text"
+            id="email"
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="input-wrapper">
           <label htmlFor="password">Password</label>
-          <input type="password" id="password" />
+          <input
+            type="password"
+            id="password"
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className="input-remember">
           <input type="checkbox" id="remember-me" />
@@ -47,7 +68,7 @@ function ContactForm() {
           onClick={getUser()}
         /> */}
 
-        <button type="button" className="sign-in-button" onClick={getUser}>
+        <button type="submit" className="sign-in-button">
           Sign In
         </button>
       </form>

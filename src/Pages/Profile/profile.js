@@ -1,5 +1,5 @@
 import React from "react";
-import "./user.scss";
+import "./profile.scss";
 // import { NavLink } from "react-router-dom";
 import NavHome from "../../Components/Nav-home/Nav-home";
 import AccountBloc from "../../Components/AccountBloc/AccountBloc";

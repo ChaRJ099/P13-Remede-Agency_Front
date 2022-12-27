@@ -15,15 +15,17 @@ export const initialState = {
 };
 
 // actions creators
-export const loginFetchingAction = (userCredentials) => ({
-  type: "login/fetching",
+export const loginAction = (userCredentials) => ({
+  type: "login",
   payload: userCredentials,
 });
-const loginResolvedAction = (data) => ({
+
+export const loginResolvedAction = (token) => ({
   type: "login/resolved",
-  payload: data,
+  payload: token,
 });
-const loginRejectedAction = (error) => ({
+
+export const loginRejectedAction = (error) => ({
   type: "login/rejected",
   payload: error,
 });
@@ -59,7 +61,7 @@ const loginRejectedAction = (error) => ({
 
 //@TODO : add status
 export function userReducer(state = initialState, action) {
-  if (action.type === "login/fetching") {
+  if (action.type === "login") {
     console.log(action);
     return {
       ...state,
@@ -74,7 +76,7 @@ export function userReducer(state = initialState, action) {
   if (action.type === "login/resolved") {
     return {
       ...state,
-      token: action.payload.token,
+      token: action.payload,
     };
   }
   if (action.type === "login/rejected") {
