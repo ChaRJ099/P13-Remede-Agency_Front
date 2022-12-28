@@ -1,0 +1,33 @@
+.transactions {
+
+    &-container  {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+  
+    &-main {
+      flex: 1;
+  
+      &--bg-dark {
+        background-color: #12002b;
+      }
+    }
+  
+  &-list {
+
+    &__header {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      flex: 4;
+      width: 90%;
+      // height: 50px;
+      margin: 0 auto;
+    }
+
+    &__item {
+      flex: 1;
+    }
+  }
+}

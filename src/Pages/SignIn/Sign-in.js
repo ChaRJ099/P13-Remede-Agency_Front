@@ -9,7 +9,7 @@ function SignIn() {
   return (
     <>
       <NavHome />
-      <main className="main bg-dark">
+      <main className="signin-main signin-main--bg-dark">
         <section>
           <ContactForm />
         </section>

@@ -7,16 +7,16 @@ import Footer from "../../Components/Footer/Footer";
 
 function User() {
   return (
-    <div className="Home">
+    <div className="profile-container">
       <NavHome />
-      <main className="main bg-dark">
-        <div className="header">
+      <main className="profile-main profile-main--bg-dark">
+        <div className="profile-header">
           <h1>
             Welcome back
             <br />
             Tony Jarvis!
           </h1>
-          <button className="edit-button">Edit Name</button>
+          <button className="profile-header__edit-button">Edit Name</button>
         </div>
         <h2 className="sr-only">Accounts</h2>
         <AccountBloc

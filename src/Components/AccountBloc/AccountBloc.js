@@ -1,20 +1,20 @@
 import "./account-bloc.scss";
 import { useNavigate } from "react-router-dom";
 
-function AccountBloc({ title, amount, amountDescription }) {
+function AccountBloc({ title, amount, description }) {
   const navigate = useNavigate();
 
   return (
     <section className="account">
-      <div className="account-content-wrapper">
-        <h3 className="account-title">{title}</h3>
-        <p className="account-amount">{amount}</p>
-        <p className="account-amount-description">{amountDescription}</p>
+      <div className="account-group">
+        <h3 className="account-group__title">{title}</h3>
+        <p className="account-group__amount">{amount}</p>
+        <p className="account-group__description">{description}</p>
       </div>
-      <div className="account-content-wrapper cta">
+      <div className="account-group account-group__button-container">
         <button
           onClick={() => navigate("/transactions")}
-          className="transaction-button"
+          className="account-group__button"
           type="button"
         >
           View transactions

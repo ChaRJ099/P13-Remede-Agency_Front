@@ -1,8 +1,7 @@
 import "./contact-form.scss";
 // import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 // import { NavLink } from "react-router-dom";
-import ButtonSignIn from "../ButtonSignIn/ButtonSignIn";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { store } from "../../Utils/store";
 import { loginAction, loginResolvedAction } from "../../Utils/reducer";
 import { userLogin } from "../../services/api-services";
@@ -36,39 +35,39 @@ function ContactForm() {
   };
 
   return (
-    <div className="sign-in-content">
-      <i className="fa fa-user-circle sign-in-icon"></i>
+    <div className="form-container">
+      <i className="fa fa-user-circle form__icon"></i>
       <h1>Sign In</h1>
       <form onSubmit={getUser}>
-        <div className="input-wrapper">
-          <label htmlFor="email">Email</label>
+        <div className="form-group">
+          <label className="form-group__label" htmlFor="email">
+            Email
+          </label>
           <input
+            className="form-group__input"
             type="text"
             id="email"
             onChange={(e) => setEmail(e.target.value)}
           />
         </div>
-        <div className="input-wrapper">
-          <label htmlFor="password">Password</label>
+        <div className="form-group">
+          <label htmlFor="password" className="form-group__label">
+            Password
+          </label>
           <input
+            className="form-group__input"
             type="password"
             id="password"
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <div className="input-remember">
+        <div className="form__checkbox">
           <input type="checkbox" id="remember-me" />
-          <label htmlFor="remember-me">Remember me</label>
+          <label className="form__checkbox__label" htmlFor="remember-me">
+            Remember me
+          </label>
         </div>
-
-        {/* <ButtonSignIn
-          to="/User"
-          className="sign-in-button"
-          text="Sign In"
-          onClick={getUser()}
-        /> */}
-
-        <button type="submit" className="sign-in-button">
+        <button type="submit" className="form__button">
           Sign In
         </button>
       </form>

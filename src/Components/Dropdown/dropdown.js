@@ -10,9 +10,9 @@ const DataLine = (props) => {
   const moreInfo = useRef();
 
   function openClose() {
-    arrow1.current.classList.toggle("downArrow_no");
-    arrow2.current.classList.toggle("upArrow_yes");
-    moreInfo.current.classList.toggle("moreInfo_open");
+    arrow1.current.classList.toggle("dropdown__arrow-down_no");
+    arrow2.current.classList.toggle("dropdown__arrow-up_yes");
+    moreInfo.current.classList.toggle("dropdown-details--open");
   }
 
   function selectCategory() {
@@ -24,29 +24,29 @@ const DataLine = (props) => {
   }
 
   return (
-    <div>
-      <div className="dataLine">
-        <div id="arrow" onClick={openClose}>
-          <span className="downArrow" ref={arrow1}>
+    <div className="transaction-group">
+      <div className="dropdown">
+        <div className="dropdown__arrow" onClick={openClose}>
+          <span className="dropdown__arrow-down" ref={arrow1}>
             <img src={down} alt="arrow down" />
           </span>
-          <span className="upArrow" ref={arrow2}>
+          <span className="dropdown__arrow-up" ref={arrow2}>
             <img src={up} alt="arrow up" />
           </span>
         </div>
-        <div id="date">{props.date}</div>
-        <div id="descr">{props.descr}</div>
-        <div id="amount">{props.amount}</div>
-        <div id="balance">{props.balance}</div>
+        <div className="dropdown__date">{props.date}</div>
+        <div className="dropdown__description">{props.description}</div>
+        <div className="dropdown__amount">{props.amount}</div>
+        <div className="dropdown__balance">{props.balance}</div>
       </div>
-      <div className="moreInfo" ref={moreInfo}>
+      <div className="dropdown-details" ref={moreInfo}>
         <p>Transaction Type: {props.transType}</p>
         <p>
           Category: {props.category}{" "}
           <img
             src={pencil}
             alt="pencil"
-            className="pencil"
+            className="dropdown-details__pencil"
             onClick={selectCategory}
           />
         </p>
@@ -55,7 +55,7 @@ const DataLine = (props) => {
           <img
             src={pencil}
             alt="pencil"
-            className="pencil"
+            className="dropdown-details__pencil"
             onClick={addNotes}
           />
         </p>

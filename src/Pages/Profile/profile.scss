@@ -1,26 +1,30 @@
-  .Home  {
+.profile {
+
+  &-container  {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
   }
-  
-  .edit-button {
-    border-color: #00bc77;
-    background-color: #00bc77;
-    color: #fff;
-    font-weight: bold;
-    padding: 10px;
-  }
-  
-  .header {
-    color: #fff;
-    margin-bottom: 2rem;
+
+  &-main {
+    flex: 1;
+
+    &--bg-dark {
+      background-color: #12002b;
+    }
   }
 
-  .main {
-    flex: 1;
+  &-header {
+    color: #fff;
+    margin-bottom: 2rem;
+
+    &__edit-button {
+      border-color: #00bc77;
+      background-color: #00bc77;
+      color: #fff;
+      font-weight: bold;
+      padding: 10px;
+    }
   }
+}
   
-  .bg-dark {
-    background-color: #12002b;
-  }

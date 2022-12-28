@@ -1,13 +1,4 @@
-.dataHead {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    height: 25px;
-    font-weight: bold;
-    margin: 0 auto;
- }
-
-.dataLine {
+.dropdown {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -19,41 +10,41 @@
     margin: 0 auto -10px auto;
  }
  
- .downArrow_no {
+ .dropdown__arrow-down_no {
     display: none;
  }
  
- .upArrow {
+ .dropdown__arrow-up {
     display: none;
  }
  
- .upArrow_yes {
+ .dropdown__arrow-up_yes {
     display: block;
  }
  
- #arrow {
+ .dropdown__arrow {
     width: 5%;
  }
  
- #arrow:hover,
+ .dropdown__arrow:hover,
  .pencil:hover {
     cursor: pointer;
  }
  
- #date {
+ .dropdown__date {
     width: 25%;
  }
  
- #descr {
+ .dropdown__description {
     width: 30%;
  }
  
- #amount,
- #balance {
+ .dropdown__amount,
+ .dropdown__balance {
     width: 20%;
  }
  
- .moreInfo {
+ .dropdown-details {  
     display: none;
     background: #12002b;
     width: 90%;
@@ -67,7 +58,7 @@
     transition: max-height 1s;
  }
  
- .moreInfo_open {
+ .dropdown-details--open {
     display: block;
     background: white;
     width: 80%;
