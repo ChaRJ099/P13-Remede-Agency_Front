@@ -2,43 +2,41 @@ import "./contact-form.scss";
 // import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
 // import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
+import { getUser } from "../../services/user-services";
 import { store } from "../../Utils/store";
-import { loginAction, loginResolvedAction } from "../../Utils/reducer";
-import { userLogin } from "../../services/api-services";
+import { selectLoginState } from "../../Utils/selectors";
+import { useNavigate } from "react-router";
 
 function ContactForm() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const initialLoggedStatus = selectLoginState(store.getState()).logged;
+  const navigate = useNavigate();
 
-  const getUser = async (e) => {
+  const submitForm = (e) => {
     e.preventDefault();
-    const user = {
-      email: email,
-      password: password,
-    };
-    console.log("user", user);
-    // utile ?
-    store.dispatch(loginAction(user));
-    //@TODO : useFetch to resolve and reject, useEffect
-
-    const response = await userLogin(user);
-    console.log("response", response);
-
-    if (response.status === 200) {
-      localStorage.setItem("isConnected", "True");
-      localStorage.setItem("token", response.body.token);
-      store.dispatch(loginResolvedAction(response.body.token));
-    } else {
-      localStorage.setItem("isConnected", "False");
-      localStorage.removeItem("token");
-    }
+    getUser({ email, password });
   };
+
+  store.subscribe(() => {
+    const loggedStatus = selectLoginState(store.getState()).logged;
+    if (initialLoggedStatus !== loggedStatus && email && password) {
+      console.log("subscribeBis", loggedStatus);
+
+      navigate("/profile");
+    }
+    console.log("subscribe", loggedStatus);
+  });
+  // const goToProfile = store.subscribe(
+  //   selectLoginState(store.getState()).logged
+  // );
+  // goToProfile();
 
   return (
     <div className="form-container">
       <i className="fa fa-user-circle form__icon"></i>
       <h1>Sign In</h1>
-      <form onSubmit={getUser}>
+      <form onSubmit={submitForm}>
         <div className="form-group">
           <label className="form-group__label" htmlFor="email">
             Email

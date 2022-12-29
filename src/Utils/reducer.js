@@ -1,70 +1,48 @@
-// actions.js
-export const PLAY_PAUSE = "playPause";
-export const RESTART = "restart";
-export const POINT_SCORED = "pointScored";
-
 export const initialState = {
   status: "void",
-  data: null,
   error: null,
   user: {
     email: null,
     password: null,
   },
   token: null,
+  logged: false,
 };
 
 // actions creators
-export const loginAction = (userCredentials) => ({
-  type: "login",
+export const loginFetchingAction = (userCredentials) => ({
+  type: "login/fetching",
   payload: userCredentials,
 });
 
-export const loginResolvedAction = (token) => ({
+export const loginResolvedAction = (payload) => ({
   type: "login/resolved",
-  payload: token,
+  payload: payload,
 });
 
-export const loginRejectedAction = (error) => ({
+export const loginRejectedAction = (payload) => ({
   type: "login/rejected",
-  payload: error,
+  payload: payload,
 });
 
-// export async function fetchLogin(store) {
-//   const status = store.getState().status;
-//   const user = store.getState().user;
-//   if (status === "pending" || status === "updating") {
-//     return;
-//   }
-//   if (user.email === null || user.password === null) {
-//   }
-//   store.dispatch(loginFetchingAction());
-//   try {
-//     //@TODO : créer fetch post
-//     const host = "http://localhost:3001/api/v1/user";
-//     const response = await fetch(`${host}/login`, {
-//       method: "POST",
-//       body: JSON.stringify(user),
-//       headers: {
-//         "Content-type": "application/json",
-//       },
-//     });
+export const profileResolved = () => ({
+  type: "profile/resolved",
+});
 
-//     const data = await response.json();
-//     store.dispatch(loginResolvedAction(data));
-//   } catch (error) {
-//     store.dispatch(loginRejectedAction(error));
-//   }
-// }
+export const profileRejected = () => ({
+  type: "profile/rejected",
+});
 
-// le reducer est une fonction
+export const resetStateAction = () => ({
+  type: "reset",
+});
 
-//@TODO : add status
 export function userReducer(state = initialState, action) {
-  if (action.type === "login") {
+  if (action.type === "login/fetching") {
     console.log(action);
     return {
       ...state,
+      status: "fetching",
       user: {
         ...state.user.email,
         email: action.payload.email,
@@ -76,15 +54,35 @@ export function userReducer(state = initialState, action) {
   if (action.type === "login/resolved") {
     return {
       ...state,
-      token: action.payload,
+      status: "resolved",
+      token: action.payload.token,
+      error: null,
     };
   }
   if (action.type === "login/rejected") {
     return {
       ...state,
-      error: action.payload.error,
+      status: "rejected",
+      error: action.payload.message,
     };
   }
-  // sinon on retourne le state sans le changer
+  if (action.type === "profile/resolved") {
+    return {
+      ...state,
+      logged: true,
+    };
+  }
+  if (action.type === "profile/rejected") {
+    return {
+      ...state,
+      logged: false,
+    };
+  }
+  if (action.type === "reset") {
+    return {
+      ...initialState,
+    };
+  }
+
   return state;
 }
