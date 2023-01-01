@@ -1,6 +1,6 @@
 import React from "react";
 import "./sign-in.scss";
-import NavHome from "../../Components/Nav-home/Nav-home";
+import NavVisitor from "../../Components/Nav-visitor/Nav-visitor";
 import "../../Components/ContactForm/ContactForm";
 import Footer from "../../Components/Footer/Footer";
 import ContactForm from "../../Components/ContactForm/ContactForm";
@@ -8,7 +8,7 @@ import ContactForm from "../../Components/ContactForm/ContactForm";
 function SignIn() {
   return (
     <>
-      <NavHome />
+      <NavVisitor />
       <main className="signin-main signin-main--bg-dark">
         <section>
           <ContactForm />

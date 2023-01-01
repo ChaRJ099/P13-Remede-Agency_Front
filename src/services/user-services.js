@@ -4,9 +4,11 @@ import {
   loginRejectedAction,
   profileResolved,
   profileRejected,
+  updateProfileResolved,
+  updateProfileRejected,
   resetStateAction,
 } from "../Utils/reducer";
-import { userLogin, userProfile } from "./api-services";
+import { userLogin, userProfile, modifyUserProfile } from "./api-services";
 import { store } from "../Utils/store";
 // import { useNavigate } from "react-router-dom";
 import { selectLoginState } from "../Utils/selectors";
@@ -30,7 +32,7 @@ export async function getUser(user) {
       };
 
       store.dispatch(loginResolvedAction(payload));
-      console.log("userProfile(token)", token);
+      // console.log("userProfile(token)", token);
       getProfile(token);
     } else {
       console.log("response", response);
@@ -44,10 +46,34 @@ export async function getUser(user) {
 async function getProfile(token) {
   const response = await userProfile(token);
   if (response.status === 200) {
-    console.log("response ok", response);
-    store.dispatch(profileResolved());
+    const payload = {
+      firstName: response.body.firstName,
+      lastName: response.body.lastName,
+    };
+    store.dispatch(profileResolved(payload));
   } else {
-    console.log("response KO", response);
+    // console.log("response KO", response);
     store.dispatch(profileRejected());
   }
+}
+
+export async function updateProfile(payload) {
+  const response = await modifyUserProfile(payload);
+  console.log("response", response);
+  if (response && response.status === 200) {
+    console.log("PUT OK", response);
+    const payload = {
+      firstName: response.body.firstName,
+      lastName: response.body.lastName,
+    };
+    store.dispatch(updateProfileResolved(payload));
+  } else {
+    console.log("PUT KO", response);
+    store.dispatch(updateProfileRejected(payload));
+    throw new Error(response.message);
+  }
+}
+
+export async function resetOnLogout() {
+  store.dispatch(resetStateAction());
 }

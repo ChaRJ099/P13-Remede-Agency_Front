@@ -1,6 +1,6 @@
 import React from "react";
 import "./transactions.scss";
-import NavHome from "../../Components/Nav-home/Nav-home";
+import NavLogged from "../../Components/Nav-logged/navLogged";
 import AccountBloc from "../../Components/AccountBloc/AccountBloc";
 import Dropdown from "../../Components/Dropdown/dropdown";
 import Footer from "../../Components/Footer/Footer";
@@ -8,8 +8,7 @@ import Footer from "../../Components/Footer/Footer";
 function User() {
   return (
     <div className="transactions-container">
-      <NavHome />
-
+      <NavLogged />
       <main
         id="transpage"
         className="transactions-main transactions-main--bg-dark"

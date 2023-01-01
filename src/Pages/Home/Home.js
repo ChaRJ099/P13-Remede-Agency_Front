@@ -1,7 +1,7 @@
 import React from "react";
 import "./home.scss";
 // import { NavLink } from "react-router-dom";
-import NavHome from "../../Components/Nav-home/Nav-home";
+import NavVisitor from "../../Components/Nav-visitor/Nav-visitor";
 import HeroBanner from "../../Components/Hero-banner/Hero-banner";
 import FeatureItem from "../../Components/Feature-item/Feature-item";
 import Footer from "../../Components/Footer/Footer";
@@ -9,7 +9,7 @@ import Footer from "../../Components/Footer/Footer";
 function Home() {
   return (
     <div className="home-container">
-      <NavHome />
+      <NavVisitor />
       <main>
         <section className="hero">
           <HeroBanner />

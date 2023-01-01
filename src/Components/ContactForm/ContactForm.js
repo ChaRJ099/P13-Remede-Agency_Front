@@ -21,16 +21,9 @@ function ContactForm() {
   store.subscribe(() => {
     const loggedStatus = selectLoginState(store.getState()).logged;
     if (initialLoggedStatus !== loggedStatus && email && password) {
-      console.log("subscribeBis", loggedStatus);
-
       navigate("/profile");
     }
-    console.log("subscribe", loggedStatus);
   });
-  // const goToProfile = store.subscribe(
-  //   selectLoginState(store.getState()).logged
-  // );
-  // goToProfile();
 
   return (
     <div className="form-container">

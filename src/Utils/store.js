@@ -10,7 +10,7 @@ export const store = createStore(
   composeWithDevTools()
 );
 
-store.subscribe(() => {
-  console.log("Nouveau state:");
-  console.log(store.getState());
-});
+// store.subscribe(() => {
+//   console.log("Nouveau state:");
+//   console.log(store.getState());
+// });

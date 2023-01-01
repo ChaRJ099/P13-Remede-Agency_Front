@@ -12,7 +12,7 @@ export const userLogin = async (user) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.warn("result userLogin", response);
+      // console.warn("result userLogin", response);
       return response;
     });
 };
@@ -27,7 +27,7 @@ export const userSignUp = async (user) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.warn("result userSignUp", response);
+      // console.warn("result userSignUp", response);
       return response;
     });
 };
@@ -42,23 +42,27 @@ export const userProfile = async (token) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log("result userProfile", response);
       return response;
     });
 };
 
-export const modifyUserProfile = async (user) => {
+export const modifyUserProfile = async (payload) => {
+  const user = {
+    firstName: payload.user.firstName,
+    lastName: payload.user.lastName,
+  };
+  const token = payload.user.token;
   return await fetch(`${host}/profile`, {
     method: "PUT",
     body: JSON.stringify(user),
     headers: {
       "Content-type": "application/json",
-      Authorization: "Bearer my-token",
+      Authorization: `Bearer ${token}`,
     },
   })
     .then((response) => response.json())
-    .then(({ result }) => {
-      //   console.log("result", result);
-      return result;
+    .then((response) => {
+      console.log("API PUT result", response);
+      return response;
     });
 };

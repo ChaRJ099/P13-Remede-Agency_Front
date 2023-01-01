@@ -1,60 +1,25 @@
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import "./profile.scss";
-// import { NavLink } from "react-router-dom";
-import NavHome from "../../Components/Nav-home/Nav-home";
+import NavLogged from "../../Components/Nav-logged/navLogged";
+import ProfileForm from "../../Components/UpdateProfileForm/updateProfileForm";
 import AccountBloc from "../../Components/AccountBloc/AccountBloc";
 import Footer from "../../Components/Footer/Footer";
+import { useSelector } from "react-redux";
 
 function Profile() {
-  const [formDisplay, setFormDisplay] = useState(false);
-
-  const toogleForm = (e) => {
-    e.preventDefault();
-    return setFormDisplay(!formDisplay);
-  };
-
-  function Form() {
-    if (formDisplay) {
-      return (
-        <form className="profile-form">
-          <div className="profile-form__inputs-group">
-            <input placeholder="firstname"></input>
-            <input placeholder="lastname"></input>
-          </div>
-          <div className="profile-form__buttons-group">
-            <button type="button" className="profile-header__save-button">
-              Save
-            </button>
-            <button
-              onClick={toogleForm}
-              type="button"
-              className="profile-header__cancel-button"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
-      );
-    } else {
-      return (
-        <button className="profile-header__edit-button" onClick={toogleForm}>
-          Edit Name
-        </button>
-      );
-    }
-  }
+  const user = useSelector((state) => state.user);
 
   return (
     <div className="profile-container">
-      <NavHome />
+      <NavLogged firstName={user.firstName} />
       <main className="profile-main profile-main--bg-dark">
         <div className="profile-header">
           <h1>
             Welcome back
             <br />
-            Tony Jarvis!
+            {user.firstName} {user.lastName}
           </h1>
-          <Form />
+          <ProfileForm />
         </div>
         <h2 className="sr-only">Accounts</h2>
         <AccountBloc

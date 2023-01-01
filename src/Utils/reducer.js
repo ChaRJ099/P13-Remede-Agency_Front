@@ -2,10 +2,12 @@ export const initialState = {
   status: "void",
   error: null,
   user: {
+    firstName: null,
+    lastName: null,
     email: null,
     password: null,
+    token: null,
   },
-  token: null,
   logged: false,
 };
 
@@ -25,12 +27,23 @@ export const loginRejectedAction = (payload) => ({
   payload: payload,
 });
 
-export const profileResolved = () => ({
+export const profileResolved = (payload) => ({
   type: "profile/resolved",
+  payload: payload,
 });
 
 export const profileRejected = () => ({
   type: "profile/rejected",
+});
+
+export const updateProfileResolved = (payload) => ({
+  type: "update/resolved",
+  payload: payload,
+});
+
+export const updateProfileRejected = (payload) => ({
+  type: "update/rejected",
+  payload: payload,
 });
 
 export const resetStateAction = () => ({
@@ -44,9 +57,8 @@ export function userReducer(state = initialState, action) {
       ...state,
       status: "fetching",
       user: {
-        ...state.user.email,
+        ...state.user,
         email: action.payload.email,
-        ...state.user.password,
         password: action.payload.password,
       },
     };
@@ -55,7 +67,10 @@ export function userReducer(state = initialState, action) {
     return {
       ...state,
       status: "resolved",
-      token: action.payload.token,
+      user: {
+        ...state.user,
+        token: action.payload.token,
+      },
       error: null,
     };
   }
@@ -70,12 +85,35 @@ export function userReducer(state = initialState, action) {
     return {
       ...state,
       logged: true,
+      user: {
+        ...state.user,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+      },
     };
   }
   if (action.type === "profile/rejected") {
     return {
       ...state,
       logged: false,
+    };
+  }
+  if (action.type === "update/resolved") {
+    return {
+      ...state,
+      status: "resolved",
+      user: {
+        ...state.user,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+      },
+    };
+  }
+  if (action.type === "update/rejected") {
+    return {
+      ...state,
+      status: "rejected",
+      error: action.payload.message,
     };
   }
   if (action.type === "reset") {
