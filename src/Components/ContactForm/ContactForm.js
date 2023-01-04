@@ -5,17 +5,41 @@ import React, { useState } from "react";
 import { getUser } from "../../services/user-services";
 import { store } from "../../Utils/store";
 import { selectLoginState } from "../../Utils/selectors";
+import { selectInvalidMsgState } from "../../Utils/selectors";
 import { useNavigate } from "react-router";
+// import { useSelector } from "react-redux";
 
 function ContactForm() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  // const [invalidMsgDisplay, setInvalidMsgDisplay] = useState(false);
+
   const initialLoggedStatus = selectLoginState(store.getState()).logged;
   const navigate = useNavigate();
+  const invalidLoginMsg = selectInvalidMsgState(store.getState()).loginStatus
+    .valid;
+
+  // const toogleInvalidLoginMsg = (e) => {
+  //   e.preventDefault();
+  //   return setInvalidMsgDisplay(!invalidMsgDisplay);
+  // };
+
+  function toogleInvalidAlert(element) {
+    return element.style.display === "flex"
+      ? (element.style.display = "none")
+      : (element.style.display = "flex");
+  }
 
   const submitForm = (e) => {
     e.preventDefault();
     getUser({ email, password });
+    const currentInvalidMsgStatus = selectInvalidMsgState(store.getState())
+      .loginStatus.valid;
+
+    if (currentInvalidMsgStatus === invalidLoginMsg && email && password) {
+      const invalidMsg = document.querySelector(".form-error-msg");
+      toogleInvalidAlert(invalidMsg);
+    }
   };
 
   store.subscribe(() => {
@@ -30,6 +54,15 @@ function ContactForm() {
       <i className="fa fa-user-circle form__icon"></i>
       <h1>Sign In</h1>
       <form onSubmit={submitForm}>
+        <div className="form-error-msg">
+          <i
+            className="fa fa-exclamation-circle form-error-msg__icon"
+            aria-hidden="true"
+          ></i>
+          <span className="form-error-msg__text">
+            Email or password is invalid!
+          </span>
+        </div>
         <div className="form-group">
           <label className="form-group__label" htmlFor="email">
             Email

@@ -52,7 +52,9 @@ async function getProfile(token) {
     };
     store.dispatch(profileResolved(payload));
   } else {
+    // const loginErrorMsg = document.querySelector(".form-error-msg");
     // console.log("response KO", response);
+    // toogleInvalidAlert(loginErrorMsg);
     store.dispatch(profileRejected());
   }
 }
@@ -77,3 +79,9 @@ export async function updateProfile(payload) {
 export async function resetOnLogout() {
   store.dispatch(resetStateAction());
 }
+
+// function toogleInvalidAlert(element) {
+//   return element.style.display === "none"
+//     ? (element.style.display = "flex")
+//     : (element.style.display = "none");
+// }

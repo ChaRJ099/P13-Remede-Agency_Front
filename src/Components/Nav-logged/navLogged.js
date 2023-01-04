@@ -19,11 +19,11 @@ function NavLogged({ firstName }) {
       </NavLink>
       <div>
         <NavLink to="" className="nav__username">
-          <i className="fa fa-user-circle"></i>
+          <i className="fa fa-user-circle nav__username-icon"></i>
           <span>{firstName}</span>
         </NavLink>
         <NavLink to="" className="nav__logout" onClick={logOut}>
-          <i className="fa fa-sign-out"></i>
+          <i className="fa fa-sign-out nav__logout-icon"></i>
           Sign Out
         </NavLink>
       </div>

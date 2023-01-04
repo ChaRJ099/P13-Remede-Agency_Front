@@ -9,6 +9,9 @@ export const initialState = {
     token: null,
   },
   logged: false,
+  loginStatus: {
+    valid: false,
+  },
 };
 
 // actions creators
@@ -72,6 +75,10 @@ export function userReducer(state = initialState, action) {
         token: action.payload.token,
       },
       error: null,
+      loginStatus: {
+        ...state.loginStatus,
+        valid: true,
+      },
     };
   }
   if (action.type === "login/rejected") {
@@ -79,6 +86,10 @@ export function userReducer(state = initialState, action) {
       ...state,
       status: "rejected",
       error: action.payload.message,
+      loginStatus: {
+        ...state.loginStatus,
+        valid: false,
+      },
     };
   }
   if (action.type === "profile/resolved") {

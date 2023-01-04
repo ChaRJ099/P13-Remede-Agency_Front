@@ -9,6 +9,22 @@
     padding: 2rem;
   }
 
+  &-error-msg {
+    display: none;
+    gap: 10px;
+    margin-bottom: 20px;
+
+    &__icon {
+      color: RGB(244, 67, 54);
+    }
+
+    &__text {
+      font-size: 0.9rem;
+      font-weight: 500; 
+      color: RGB(244, 67, 54);
+    }
+  }
+
   &-group {
     display: flex;
     flex-direction: column;
