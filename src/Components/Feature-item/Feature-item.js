@@ -1,5 +1,4 @@
 import "./feature-item.scss";
-// import IconChat from "../../Assets/icon-chat.png";
 
 function FeatureItem(props) {
   return (

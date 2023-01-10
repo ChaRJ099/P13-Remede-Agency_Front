@@ -1,7 +1,13 @@
-// import { useState, useEffect } from "react";
-
 const host = "http://localhost:3001/api/v1/user";
 
+/**
+ * API call / POST method to allow the user to log in
+ * @param {{
+ *  email: string,
+ *  password: string
+ * }} user
+ * @returns response
+ */
 export const userLogin = async (user) => {
   return await fetch(`${host}/login`, {
     method: "POST",
@@ -12,11 +18,18 @@ export const userLogin = async (user) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      // console.warn("result userLogin", response);
       return response;
     });
 };
 
+/**
+ * API call / POST method to allow the user to sign up
+ * @param {{
+ *  email: string,
+ *  password: string
+ * }} user
+ * @returns response
+ */
 export const userSignUp = async (user) => {
   return await fetch(`${host}/signup`, {
     method: "POST",
@@ -27,11 +40,15 @@ export const userSignUp = async (user) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      // console.warn("result userSignUp", response);
       return response;
     });
 };
 
+/**
+ * API call / POST method to allow the user to access his dashboard
+ * @param { string } token
+ * @returns response
+ */
 export const userProfile = async (token) => {
   return await fetch(`${host}/profile`, {
     method: "POST",
@@ -46,6 +63,16 @@ export const userProfile = async (token) => {
     });
 };
 
+/**
+ * API call / PUT method to allow the user to update their personal information
+ * @param {{
+ *  user : {
+ *    firstName: string,
+ *    lastName: string,
+ *    token: string
+ * }}} payload
+ * @returns response
+ */
 export const modifyUserProfile = async (payload) => {
   const user = {
     firstName: payload.user.firstName,
@@ -62,7 +89,6 @@ export const modifyUserProfile = async (payload) => {
   })
     .then((response) => response.json())
     .then((response) => {
-      console.log("API PUT result", response);
       return response;
     });
 };

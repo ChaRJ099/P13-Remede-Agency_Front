@@ -1,6 +1,5 @@
 import React from "react";
 import "./home.scss";
-// import { NavLink } from "react-router-dom";
 import IconChat from "../../Assets/icon-chat.png";
 import IconMoney from "../../Assets/icon-money.png";
 import IconSecurity from "../../Assets/icon-security.png";

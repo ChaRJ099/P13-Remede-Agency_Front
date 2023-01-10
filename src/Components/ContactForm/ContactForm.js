@@ -1,35 +1,35 @@
 import "./contact-form.scss";
-// import "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css";
-// import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import { getUser } from "../../services/user-services";
 import { store } from "../../Utils/store";
 import { selectLoginState } from "../../Utils/selectors";
 import { selectInvalidMsgState } from "../../Utils/selectors";
 import { useNavigate } from "react-router";
-// import { useSelector } from "react-redux";
 
 function ContactForm() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  // const [invalidMsgDisplay, setInvalidMsgDisplay] = useState(false);
 
   const initialLoggedStatus = selectLoginState(store.getState()).logged;
   const navigate = useNavigate();
   const invalidLoginMsg = selectInvalidMsgState(store.getState()).loginStatus
     .valid;
 
-  // const toogleInvalidLoginMsg = (e) => {
-  //   e.preventDefault();
-  //   return setInvalidMsgDisplay(!invalidMsgDisplay);
-  // };
-
+  /**
+   * @param { HTMLElement } element
+   * @returns style display flex or none
+   */
   function toogleInvalidAlert(element) {
     return element.style.display === "flex"
       ? (element.style.display = "none")
       : (element.style.display = "flex");
   }
 
+  /**
+   * When sending form :
+   * - If API response is OK -> get user's token and navigate to profile page;
+   * - Update the loginStatus validity's state -> If false, display error message;
+   */
   const submitForm = (e) => {
     e.preventDefault();
     getUser({ email, password });
@@ -41,7 +41,6 @@ function ContactForm() {
       toogleInvalidAlert(invalidMsg);
     }
   };
-
   store.subscribe(() => {
     const loggedStatus = selectLoginState(store.getState()).logged;
     if (initialLoggedStatus !== loggedStatus && email && password) {

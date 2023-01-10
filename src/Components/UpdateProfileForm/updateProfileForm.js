@@ -10,6 +10,7 @@ function ProfileForm() {
   const user = useSelector((state) => state.user);
   const token = useSelector((state) => state.user.token);
 
+  // toogle Form display true or false
   const toogleForm = (e) => {
     e.preventDefault();
     return setFormDisplay(!formDisplay);
@@ -17,14 +18,14 @@ function ProfileForm() {
 
   const updateProfileOnSubmit = (e) => {
     e.preventDefault();
-    const payload = {
+    const userPayload = {
       user: {
         firstName,
         lastName,
         token,
       },
     };
-    updateProfile(payload);
+    updateProfile(userPayload);
   };
 
   if (formDisplay) {

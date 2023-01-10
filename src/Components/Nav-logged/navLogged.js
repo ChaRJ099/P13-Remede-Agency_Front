@@ -7,6 +7,7 @@ import { resetOnLogout } from "../../services/user-services";
 function NavLogged({ firstName }) {
   const navigate = useNavigate();
 
+  // On logout : reset the state and return to the home page
   async function logOut() {
     await resetOnLogout();
     navigate("/");
